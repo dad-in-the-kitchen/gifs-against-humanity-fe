@@ -3,26 +3,32 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { store } from './app/store';
-import Home from './gifsAgainstHumanity/routes/Home';
-import AppContainer from './gifsAgainstHumanity/routes/App';
 import './index.css';
+import { store } from './app/store';
+import Lobby from './gifsAgainstHumanity/routes/Lobby';
+import Home from './gifsAgainstHumanity/routes/Home';
+import GameRoom from './gifsAgainstHumanity/routes/GameRoom';
+import AppContainer from './gifsAgainstHumanity/routes/App';
 
-const container = document.getElementById('root')!;
-const root = createRoot(container);
 
 const router = createBrowserRouter([
   {
-    path: "/*",
+    path: '/*',
     element: <Home />,
   },
   {
-    path: "/ori",
-    element: <div>ori</div>
+    path: '/lobby/:lobbyCode',
+    element: <Lobby />
+  },
+  {
+    path: '/game/:gameCode',
+    element: <GameRoom />
   }
 ]);
 
 
+const container = document.getElementById('root')!;
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>

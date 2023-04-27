@@ -69,11 +69,6 @@ function Bottom() {
   );
 };
 
-
-
-
-
-
 export default function AppContainer(props: {children: JSX.Element}) {
   return (
     <React.Fragment>
