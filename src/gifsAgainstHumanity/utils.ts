@@ -16,7 +16,7 @@ export function getUserId() {
 
 export function getUserNameFromLocalStorage() {
     const userNameKey = 'userName';
-    return localStorage.getItem(userNameKey);
+    return localStorage.getItem(userNameKey) || '';
 };
 
 

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function Lobby() {
+    const { lobbyCode } = useParams();
+
     return (
         <div>
             <div>
-                <h1>Room No. 12345</h1>
+                <h1>Room No. {lobbyCode}</h1>
             </div>
             <div>
                 <ol>
@@ -21,7 +23,7 @@ export default function Lobby() {
                     <p>Max Points: 10</p>
                 </div>
                 <div>
-                    <Link to='/game/12345'>Play</Link>
+                    <Link to={`/game/${lobbyCode}`}>Play</Link>
                 </div>
             </div>
         </div>

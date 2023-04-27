@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react'
 import { useNavigate, NavigateFunction, useLocation, Link } from 'react-router-dom';
 
-import { CreateNewLobby } from '../logic/lobbyLogic';
+import { createNewLobby, joinLobby } from '../logic/lobbyLogic';
 import { getUserId, setUserNameInLocalStorage, getUserNameFromLocalStorage } from '../utils';
 
 
@@ -10,20 +10,25 @@ async function createLobbyAndRedirect(navigateFunction: NavigateFunction) {
     const userId = getUserId();
     const userName = getUserNameFromLocalStorage();
 
-    if (!userName) {
-        throw new Error('no name set');
-    }
-    const lobbyCode = await CreateNewLobby(userId, userName);
+    const lobbyCode = await createNewLobby(userId, userName);
     navigateFunction(`/lobby/${lobbyCode}`)
 };
 
+async function joinLobbyAndRedirect(navigateFunction: NavigateFunction, lobbyCode: string) {
+    const userId = getUserId();
+    const userName = getUserNameFromLocalStorage();
+
+    lobbyCode = await joinLobby(userId, userName, lobbyCode);
+    navigateFunction(`/lobby/${lobbyCode}`)
+};
 
 
 export default function Home() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [userName, setUserName] = useState<string>(getUserNameFromLocalStorage() || '');
+    const [userName, setUserName] = useState<string>(getUserNameFromLocalStorage());
+    const [lobbyCode, setLobbyCode] = useState<string>('');
     
     useEffect(() => {
         if (location.pathname !== '/') {
@@ -40,7 +45,7 @@ export default function Home() {
             <div>
                 <p>Your name is:</p>
                 <input type='text' placeholder='Putzi Katzi' value={userName} 
-                onChange={(e) => {setUserName(e.target.value)}}></input>
+                onChange={(e) => setUserName(e.target.value)}></input>
             </div>
             <div>
                 <div>
@@ -49,8 +54,9 @@ export default function Home() {
                     </button>
                 </div>
                 <div>
-                    <button>Join</button>
-                    <input type='text' placeholder='Room Code'></input>
+                    <button onClick={() => joinLobbyAndRedirect(navigate, lobbyCode)}>Join</button>
+                    <input type='text' placeholder='Room Code' value={lobbyCode} 
+                    onChange={(e) => setLobbyCode(e.target.value)}></input>
                 </div>
             </div>
         </div>
