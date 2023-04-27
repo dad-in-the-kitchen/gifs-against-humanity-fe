@@ -1,13 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { Counter } from '../../features/counter/Counter';
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -55,4 +52,34 @@ function App() {
   );
 }
 
-export default App;
+
+function Header() {
+  return (
+    <div>
+      <h1>GIFs Against Humanity</h1>
+    </div>
+  );
+};
+
+function Bottom() {
+  return (
+    <div>
+      <p>Made By <a href='https://github.com/dad-in-the-kitchen'>Dad In The Kitchen</a></p>
+    </div>
+  );
+};
+
+
+
+
+
+
+export default function AppContainer(props: {children: JSX.Element}) {
+  return (
+    <React.Fragment>
+      <Header />
+      {props.children}
+      <Bottom />
+    </React.Fragment>
+  );
+};
