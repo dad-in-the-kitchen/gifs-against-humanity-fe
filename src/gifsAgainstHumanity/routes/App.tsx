@@ -64,7 +64,7 @@ function Header() {
 function Bottom() {
   return (
     <div>
-      <p>Made By <a href='https://github.com/dad-in-the-kitchen'>Dad In The Kitchen</a></p>
+      <p>Made By <a href='https://github.com/dad-in-the-kitchen' target="_blank" rel="noopener noreferrer">Dad In The Kitchen</a></p>
     </div>
   );
 };

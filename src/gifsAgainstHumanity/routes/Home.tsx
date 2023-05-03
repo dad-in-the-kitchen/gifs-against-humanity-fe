@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
-import { useNavigate, NavigateFunction, useLocation, Link } from 'react-router-dom';
+import { useNavigate, NavigateFunction, useLocation } from 'react-router-dom';
 
 import { createNewLobby, joinLobby } from '../logic/lobbyLogic';
 import { getUserId, setUserNameInLocalStorage, getUserNameFromLocalStorage } from '../utils';
@@ -19,7 +19,7 @@ async function joinLobbyAndRedirect(navigateFunction: NavigateFunction, lobbyCod
     const userName = getUserNameFromLocalStorage();
 
     lobbyCode = await joinLobby(userId, userName, lobbyCode);
-    navigateFunction(`/lobby/${lobbyCode}`)
+    navigateFunction(`/lobby/${lobbyCode}`);
 };
 
 
